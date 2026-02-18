@@ -3,6 +3,8 @@ name: Java Playwright CI
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'ci-artifacts/allure-history.zip'
   pull_request:
 
 permissions:
@@ -108,3 +110,18 @@ jobs:
           publish_branch: gh-pages
           publish_dir: allure-history
           #force_orphan: true   # REMOVE AFTER FIRST SUCCESSFUL RUN
+
+      - name: Zip Allure History
+        run: |
+          mkdir -p ci-artifacts
+          cd allure-history
+          zip -r ../ci-artifacts/allure-history.zip .
+
+      - name: Commit Allure History ZIP to Repo
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ci-artifacts/allure-history.zip
+          git commit -m "chore(ci): update allure history zip [skip ci]" || echo "No changes to commit"
+          git push
