@@ -5,6 +5,7 @@ import auto01.base.TestModule;
 import auto01.pages.LoginPage;
 import com.google.inject.Inject;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 import io.qameta.allure.*;
 import org.testng.Reporter;
 import org.testng.annotations.Guice;
@@ -24,7 +25,7 @@ public class LoginTest1 extends BaseUiTest {
     @Inject
     LoginPage loginPage;
 
-    @Test(groups = {"ui", "smoke"})
+    @Test(priority = 1,groups = {"ui", "smoke"})
     @Description("This test attempts to log into the website using a login and a password. Fails if any error happens.\n\nNote that this test does not test 2-Factor Authentication.")
     @Severity(CRITICAL)
     @Owner("Awana01")
@@ -45,13 +46,10 @@ public class LoginTest1 extends BaseUiTest {
 
     }
 
-    @Test(groups = {"ui"})
-    public void nonGUITest() {
+    @Test(priority = 2, groups = {"ui"})
+    public void EmployeePageTest() {
         System.out.println("Current Date Time: " + currentTimeStamp());
-        System.out.println("Non gui tests");
-
-        loginPage.getPage().getByText("PIM").click();
-        Reporter.log("user clicks in PIM link");
+        page.getByRole(AriaRole.LINK,new Page.GetByRoleOptions().setName("PIM")).click();
         try { Thread.sleep(5000); }
         catch (InterruptedException e) { throw new RuntimeException(e); }
     }

@@ -5,6 +5,8 @@ import auto01.base2.BaseUiTest2;
 import auto01.base2.TestModuleLazyInit;
 import auto01.pages.LoginPage;
 import com.google.inject.Inject;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 
@@ -21,7 +23,7 @@ public class LoginTest2 extends BaseUiTest2 {
     LoginPage loginPage;
 
 
-    @Test(groups = {"ui", "smoke"})
+    @Test(priority = 1,groups = {"ui", "smoke"})
     public void loginSmokeTest() {
         // Print the result
         System.out.println("Current Date Time: " + currentTimeStamp());
@@ -29,24 +31,21 @@ public class LoginTest2 extends BaseUiTest2 {
         loginPage.HRMLogin("Admin", "admin123");
     }
 
-    @Test(groups = {"ui"})
+    @Test(priority = 2, groups = {"ui"})
     public void EmployeePageTest() {
         System.out.println("Current Date Time: " + currentTimeStamp());
-        page.getByText("PIM").click();
+        page.getByRole(AriaRole.LINK,new Page.GetByRoleOptions().setName("PIM")).click();
         try { Thread.sleep(5000); }
         catch (InterruptedException e) { throw new RuntimeException(e); }
-
-
     }
 
-//    @Test(groups = {"ui"})
-//    public void AdminPageTest() {
-//        System.out.println("Current Date Time: " + currentTimeStamp());
-//
-//        page.getByText("Admin").click();
-//        try { Thread.sleep(5000); }
-//        catch (InterruptedException e) { throw new RuntimeException(e); }
-//    }
+    @Test(priority = 3, groups = {"ui"})
+    public void AdminPageTest() {
+        System.out.println("Current Date Time: " + currentTimeStamp());
+        page.getByRole(AriaRole.LINK,new Page.GetByRoleOptions().setName("Admin")).click();
+        try { Thread.sleep(5000); }
+        catch (InterruptedException e) { throw new RuntimeException(e); }
+    }
 
 
     public String currentTimeStamp(){
