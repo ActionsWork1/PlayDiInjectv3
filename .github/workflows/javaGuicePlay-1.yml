@@ -48,14 +48,35 @@ jobs:
       - name: Build and Test
         run: xvfb-run --auto-servernum mvn clean test
 
-      # 1. Pull existing history from gh-pages into a local folder named 'gh-pages'
-      - name: Load Allure History
-        uses: actions/checkout@v4
+
+      # Checkout gh-pages branch to fetch Allure history
+      - name: Checkout gh-pages (for Allure history)
         if: always()
+        uses: actions/checkout@v4
         continue-on-error: true
         with:
           ref: gh-pages
           path: gh-pages
+
+      # Copy history from previous run (if exists)
+      - name: Restore Allure History
+        if: always()
+        run: |
+          mkdir -p allure-results/history
+          if [ -d "gh-pages/history" ]; then
+            cp -r gh-pages/history/* allure-results/history/
+          else
+            echo "No previous Allure history found."
+          fi      
+
+#      # 1. Pull existing history from gh-pages into a local folder named 'gh-pages'
+#      - name: Load Allure History
+#        uses: actions/checkout@v4
+#        if: always()
+#        continue-on-error: true
+#        with:
+#          ref: gh-pages
+#          path: gh-pages
 
       # 2. KEY STEP: Copy history from the previous deployment to the current results
       - name: Allure Report Action setup
