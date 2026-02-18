@@ -1,110 +1,110 @@
-name: Java Playwright CI
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
-          cache: maven
-
-      - name: Cache Playwright Browsers
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-browsers
-          save-always: true
-
-      - name: Install Playwright Browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install chromium --with-deps"
-
-      - name: Cache Debug Playwright
-        run: |
-          echo "Playwright cache hit = ${{ steps.playwright-cache.outputs.cache-hit }}"
-          ls -la ~/.cache/ms-playwright || true
-
-      - name: Run Tests
-        run: xvfb-run --auto-servernum mvn clean test -Denv=ci || true
-
-        #  1. Pull existing history from gh-pages into a local folder named 'gh-pages'
-      - name: Load Allure History
-        uses: actions/checkout@v4
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
-
-       # 2. KEY STEP: Copy history from the previous deployment to the current results
-      - name: Allure Report Action setup
-        if: always()
-        run: |
-           mkdir -p allure-results/history
-           # Copy the history folder from the last deployment into the new results
-           cp -r gh-pages-dir/history/* allure-results/history/ || echo "No previous history found"          
-
-        # 2. Build the new report.
-        # It takes results from your bin folder AND history from the 'gh-pages' folder,
-        # then puts the combined result into 'allure-history'
-      - name: Build Allure Report
-        uses: simple-elf/allure-report-action@master
-        if: always()
-        with:
-         allure_results: allure-results
-         allure_history: allure-history
-         keep_reports: 20
-
-         # working but history is not displaying
-#     - name: Copy Allure Results
+#name: Java Playwright CI
+#
+#on:
+#  push:
+#    branches: [ main ]
+#  pull_request:
+#
+#permissions:
+#  contents: write
+#  pages: write
+#  id-token: write
+#
+#jobs:
+#  test:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - uses: actions/setup-java@v4
+#        with:
+#          distribution: temurin
+#          java-version: '21'
+#          cache: maven
+#
+#      - name: Cache Playwright Browsers
+#        id: playwright-cache
+#        uses: actions/cache@v4
+#        with:
+#          path: ~/.cache/ms-playwright
+#          key: ${{ runner.os }}-playwright-browsers
+#          save-always: true
+#
+#      - name: Install Playwright Browsers
+#        if: steps.playwright-cache.outputs.cache-hit != 'true'
+#        run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install chromium --with-deps"
+#
+#      - name: Cache Debug Playwright
+#        run: |
+#          echo "Playwright cache hit = ${{ steps.playwright-cache.outputs.cache-hit }}"
+#          ls -la ~/.cache/ms-playwright || true
+#
+#      - name: Run Tests
+#        run: xvfb-run --auto-servernum mvn clean test -Denv=ci || true
+#
+#        #  1. Pull existing history from gh-pages into a local folder named 'gh-pages'
+#      - name: Load Allure History
+#        uses: actions/checkout@v4
+#        if: always()
+#        continue-on-error: true
+#        with:
+#          ref: gh-pages
+#          path: gh-pages
+#
+#       # 2. KEY STEP: Copy history from the previous deployment to the current results
+#      - name: Allure Report Action setup
 #        if: always()
 #        run: |
-#          mkdir -p ./allure-results
-#          cp -r allure-results/* allure-results/ || echo "No allure results found"
-##          cp -r target/allure-results/* allure-results/ || echo "No allure results found"
+#           mkdir -p allure-results/history
+#           # Copy the history folder from the last deployment into the new results
+#           cp -r gh-pages-dir/history/* allure-results/history/ || echo "No previous history found"
 #
+#        # 2. Build the new report.
+#        # It takes results from your bin folder AND history from the 'gh-pages' folder,
+#        # then puts the combined result into 'allure-history'
 #      - name: Build Allure Report
-#        if: always()
 #        uses: simple-elf/allure-report-action@master
+#        if: always()
 #        with:
-#          allure_results: allure-results
-#          allure_history: allure-history
-#          keep_reports: 20
-
-      - name: Debug Allure Output
-        if: always()
-        run: |
-          ls -la allure-history || true
-
-      - name: Post Link to Allure Report
-        if: always()
-        run: |
-           echo "## Allure Test Report" >> $GITHUB_STEP_SUMMARY
-           echo "The latest test results have been published." >> $GITHUB_STEP_SUMMARY
-           echo "[View Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)" >> $GITHUB_STEP_SUMMARY
-
-
-      - name: Deploy Allure Report to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: allure-history
-          #force_orphan: true   # REMOVE AFTER FIRST SUCCESSFUL RUN
+#         allure_results: allure-results
+#         allure_history: allure-history
+#         keep_reports: 20
+#
+#         # working but history is not displaying
+##     - name: Copy Allure Results
+##        if: always()
+##        run: |
+##          mkdir -p ./allure-results
+##          cp -r allure-results/* allure-results/ || echo "No allure results found"
+###          cp -r target/allure-results/* allure-results/ || echo "No allure results found"
+##
+##      - name: Build Allure Report
+##        if: always()
+##        uses: simple-elf/allure-report-action@master
+##        with:
+##          allure_results: allure-results
+##          allure_history: allure-history
+##          keep_reports: 20
+#
+#      - name: Debug Allure Output
+#        if: always()
+#        run: |
+#          ls -la allure-history || true
+#
+#      - name: Post Link to Allure Report
+#        if: always()
+#        run: |
+#           echo "## Allure Test Report" >> $GITHUB_STEP_SUMMARY
+#           echo "The latest test results have been published." >> $GITHUB_STEP_SUMMARY
+#           echo "[View Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)" >> $GITHUB_STEP_SUMMARY
+#
+#
+#      - name: Deploy Allure Report to GitHub Pages
+#        if: always()
+#        uses: peaceiris/actions-gh-pages@v4
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_branch: gh-pages
+#          publish_dir: allure-history
+#          #force_orphan: true   # REMOVE AFTER FIRST SUCCESSFUL RUN
