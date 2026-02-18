@@ -29,12 +29,13 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-browsers
+          save-always: true
 
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install chromium --with-deps"
 
-      - name: Cache Debug
+      - name: Cache Debug Playwright
         run: |
           echo "Playwright cache hit = ${{ steps.playwright-cache.outputs.cache-hit }}"
           ls -la ~/.cache/ms-playwright || true
