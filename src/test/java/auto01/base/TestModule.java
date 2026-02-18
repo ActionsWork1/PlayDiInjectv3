@@ -153,8 +153,22 @@ public class TestModule extends AbstractModule {
 
     @Provides @Singleton
     public Browser provideBrowser(Playwright playwright) {
-        return playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
+
+        String env = System.getProperty("env", "local");
+
+        if (env.equalsIgnoreCase("local")|| env.isBlank() || env.isEmpty()) {
+            return playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        } else {
+            return playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
+        }
+
     }
+
+    @Provides
+    public String provideBrowserVersion(Browser browser) {
+        return browser.version();
+    }
+
 
     @Provides
     public Page providePage(Browser browser) {

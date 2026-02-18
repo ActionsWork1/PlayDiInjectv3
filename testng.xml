@@ -9,7 +9,7 @@
     <test name="Ui Data-Driven Test" verbose="2" preserve-order="true" >
         <groups>
             <run>
-                <include name="ui"/>
+                <include name="grp1"/>
             </run>
         </groups>
 
@@ -21,7 +21,7 @@
     <test name="Non Lazy Page Initialization Tests" verbose="2" preserve-order="true" >
         <groups>
             <run>
-                <include name="ui"/>
+                <include name="grp2"/>
             </run>
         </groups>
 

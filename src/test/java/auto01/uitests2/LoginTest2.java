@@ -23,7 +23,7 @@ public class LoginTest2 extends BaseUiTest2 {
     LoginPage loginPage;
 
 
-    @Test(priority = 1,groups = {"ui", "smoke"})
+    @Test(priority = 1,groups = {"ui", "smoke","grp2"})
     public void loginSmokeTest() {
         // Print the result
         System.out.println("Current Date Time: " + currentTimeStamp());
@@ -31,7 +31,7 @@ public class LoginTest2 extends BaseUiTest2 {
         loginPage.HRMLogin("Admin", "admin123");
     }
 
-    @Test(priority = 2, groups = {"ui"})
+    @Test(priority = 2, groups = {"ui","grp2"})
     public void EmployeePageTest() {
         System.out.println("Current Date Time: " + currentTimeStamp());
         page.getByRole(AriaRole.LINK,new Page.GetByRoleOptions().setName("PIM")).click();
@@ -39,7 +39,7 @@ public class LoginTest2 extends BaseUiTest2 {
         catch (InterruptedException e) { throw new RuntimeException(e); }
     }
 
-    @Test(priority = 3, groups = {"ui"})
+    @Test(priority = 3, groups = {"ui","grp2"})
     public void AdminPageTest() {
         System.out.println("Current Date Time: " + currentTimeStamp());
         page.getByRole(AriaRole.LINK,new Page.GetByRoleOptions().setName("Admin")).click();

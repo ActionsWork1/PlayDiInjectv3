@@ -25,7 +25,7 @@ public class LoginTest1 extends BaseUiTest {
     @Inject
     LoginPage loginPage;
 
-    @Test(priority = 1,groups = {"ui", "smoke"})
+    @Test(priority = 1,groups = {"ui", "smoke","grp1"})
     @Description("This test attempts to log into the website using a login and a password. Fails if any error happens.\n\nNote that this test does not test 2-Factor Authentication.")
     @Severity(CRITICAL)
     @Owner("Awana01")
@@ -46,7 +46,7 @@ public class LoginTest1 extends BaseUiTest {
 
     }
 
-    @Test(priority = 2, groups = {"ui"})
+    @Test(priority = 2, groups = {"ui","grp1"})
     public void EmployeePageTest() {
         System.out.println("Current Date Time: " + currentTimeStamp());
         page.getByRole(AriaRole.LINK,new Page.GetByRoleOptions().setName("PIM")).click();
