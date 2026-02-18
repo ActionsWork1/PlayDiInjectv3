@@ -24,6 +24,8 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
+          cache-dependency-path: |
+            pom.xml
 
       - name: Cache Playwright Browsers
         id: playwright-cache
@@ -42,8 +44,15 @@ jobs:
           echo "Playwright cache hit = ${{ steps.playwright-cache.outputs.cache-hit }}"
           ls -la ~/.cache/ms-playwright || true
 
+      - name: Prefetch Maven Dependencies
+        run: mvn -B -ntp -q -DskipTests dependency:go-offline
+
       - name: Run Tests
-        run: xvfb-run --auto-servernum mvn clean test -Denv=ci || true
+        run: mvn -B -ntp clean test -Denv=ci || true
+#        run: mvn -B -ntp test
+
+#      - name: Run Tests
+#        run: xvfb-run --auto-servernum mvn clean test -Denv=ci || true
 
         #  1. Pull existing history from gh-pages into a local folder named 'gh-pages'
       - name: Load Allure History
