@@ -136,7 +136,7 @@
                     </argLine>
                     <systemPropertyVariables>
                         <allure.results.directory>allure-results</allure.results.directory>
-                        <testng.testnames>${testng.testnames}</testng.testnames>
+
                     </systemPropertyVariables>
                 </configuration>
 
