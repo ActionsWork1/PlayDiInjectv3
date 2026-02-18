@@ -44,7 +44,7 @@ jobs:
       # ---------- Install Browsers if Cache Miss ----------
       - name: Install Playwright Browsers
         if: steps.pw-cache-restore.outputs.cache-hit != 'true'
-        run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install chromium"
+        run: mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install chromium --with-deps"
 
       # ---------- Run Tests ----------
       - name: Run Tests (Linux)
