@@ -30,14 +30,20 @@ public class LoginTest2 extends BaseUiTest2 {
     }
 
     @Test(groups = {"ui"})
-    public void nonGUITest() {
+    public void EmployeePageTest() {
         System.out.println("Current Date Time: " + currentTimeStamp());
-        System.out.println("Non gui tests");
-////        int randomTimeout = faker.random().nextInt(2000, 10000);
-//        try { Thread.sleep(5000); }
-//        catch (InterruptedException e) { throw new RuntimeException(e); }
-
         page.getByText("PIM").click();
+        try { Thread.sleep(5000); }
+        catch (InterruptedException e) { throw new RuntimeException(e); }
+
+
+    }
+
+    @Test(groups = {"ui"})
+    public void AdminPageTest() {
+        System.out.println("Current Date Time: " + currentTimeStamp());
+
+        page.getByText("Admin").click();
         try { Thread.sleep(5000); }
         catch (InterruptedException e) { throw new RuntimeException(e); }
 
