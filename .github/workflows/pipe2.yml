@@ -40,8 +40,9 @@ jobs:
       - name: Copy Allure Results
         if: always()
         run: |
-          mkdir -p allure-results
-          cp -r target/allure-results/* allure-results/ || echo "No allure results found"
+          mkdir -p ./allure-results
+          cp -r allure-results/* allure-results/ || echo "No allure results found"
+#          cp -r target/allure-results/* allure-results/ || echo "No allure results found"
 
       - name: Build Allure Report
         if: always()
