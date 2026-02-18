@@ -1,0 +1,56 @@
+name: JavaPlaywright Multi-OS CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+strategy:
+  matrix:
+    os: [ubuntu-latest, windows-latest, macos-latest]
+
+runs-on: ${{ matrix.os }}
+
+steps:
+  - uses: actions/checkout@v4
+
+  - uses: actions/setup-java@v4
+    with:
+      distribution: temurin
+      java-version: '21'
+      cache: maven
+
+  - name: Restore Playwright Browsers Cache
+    id: pw-cache-restore
+    uses: actions/cache/restore@v4
+    with:
+      path: |
+        ~/.cache/ms-playwright
+        %USERPROFILE%\AppData\Local\ms-playwright
+        ~/Library/Caches/ms-playwright
+      key: playwright-${{ runner.os }}-${{ runner.arch }}-v1
+
+  - name: Install Playwright Browsers
+    if: steps.pw-cache-restore.outputs.cache-hit != 'true'
+    run: |
+      mvn exec:java -Dexec.mainClass=com.microsoft.playwright.CLI -Dexec.args="install chromium"
+
+  # run tests here
+
+  - name: Save Playwright Browsers Cache
+    if: always()
+    uses: actions/cache/save@v4
+    with:
+      path: |
+        ~/.cache/ms-playwright
+        %USERPROFILE%\AppData\Local\ms-playwright
+        ~/Library/Caches/ms-playwright
+      key: playwright-${{ runner.os }}-${{ runner.arch }}-v1
+
+  - name: Run Tests
+    run: xvfb-run --auto-servernum mvn clean test -Denv=ci || true

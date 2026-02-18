@@ -92,6 +92,14 @@ jobs:
         run: |
           ls -la allure-history || true
 
+      - name: Post Link to Allure Report
+        if: always()
+        run: |
+           echo "## Allure Test Report" >> $GITHUB_STEP_SUMMARY
+           echo "The latest test results have been published." >> $GITHUB_STEP_SUMMARY
+           echo "[View Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)" >> $GITHUB_STEP_SUMMARY
+
+
       - name: Deploy Allure Report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
