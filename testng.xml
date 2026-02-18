@@ -7,7 +7,6 @@
     </listeners>
 
     <test name="Ui Data-Driven Test" verbose="2" preserve-order="true" >
-
         <groups>
             <run>
                 <include name="ui"/>
