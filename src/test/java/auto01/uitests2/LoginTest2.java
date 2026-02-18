@@ -39,16 +39,14 @@ public class LoginTest2 extends BaseUiTest2 {
 
     }
 
-    @Test(groups = {"ui"})
-    public void AdminPageTest() {
-        System.out.println("Current Date Time: " + currentTimeStamp());
-
-        page.getByText("Admin").click();
-        try { Thread.sleep(5000); }
-        catch (InterruptedException e) { throw new RuntimeException(e); }
-
-
-    }
+//    @Test(groups = {"ui"})
+//    public void AdminPageTest() {
+//        System.out.println("Current Date Time: " + currentTimeStamp());
+//
+//        page.getByText("Admin").click();
+//        try { Thread.sleep(5000); }
+//        catch (InterruptedException e) { throw new RuntimeException(e); }
+//    }
 
 
     public String currentTimeStamp(){

@@ -20,7 +20,7 @@ public class TestModuleLazyInit extends AbstractModule {
 
     @Provides @Singleton
     public Browser provideBrowser(Playwright playwright) {
-        return playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        return playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
     }
 
     @Provides
