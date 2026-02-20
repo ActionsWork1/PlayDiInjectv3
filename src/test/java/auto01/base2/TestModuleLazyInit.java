@@ -20,7 +20,16 @@ public class TestModuleLazyInit extends AbstractModule {
 
     @Provides @Singleton
     public Browser provideBrowser(Playwright playwright) {
-        return playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
+        //return playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
+
+        String env = System.getProperty("env", "local");
+
+        if (env.equalsIgnoreCase("local")|| env.isBlank() || env.isEmpty()) {
+            return playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(false));
+        } else {
+            return playwright.chromium().launch(new BrowserType.LaunchOptions().setHeadless(true));
+        }
+
     }
 
     @Provides

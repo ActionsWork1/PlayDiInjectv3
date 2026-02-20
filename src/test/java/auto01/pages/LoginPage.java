@@ -7,8 +7,6 @@ import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.WaitUntilState;
 import org.testng.Reporter;
 
-import javax.swing.plaf.ActionMapUIResource;
-
 public class LoginPage {
 
 
@@ -24,11 +22,9 @@ public class LoginPage {
 
     private final Page page;
 
-    private Locator Username_TXT;
-    private Locator Password_TXT;
-    private Locator LoginButton_BTN;
-
-
+    private final Locator Username_TXT;
+    private final Locator Password_TXT;
+    private final Locator LoginButton_BTN;
 
     @Inject
     public LoginPage(Page page) {
@@ -38,6 +34,10 @@ public class LoginPage {
         LoginButton_BTN=page.locator("button[type='submit']");
     }
 
+    /***
+     *
+     * @param url
+     */
     public void NavigateTo(String url){
         Reporter.log("Navigate to " + url);
         page.navigate(url,new Page.NavigateOptions()
@@ -46,6 +46,11 @@ public class LoginPage {
                      );
     }
 
+    /***
+     *
+     * @param uname
+     * @param pwd
+     */
     public void HRMLogin(String uname,String pwd){
         Username_TXT.fill(uname);
         Password_TXT.fill(pwd);
@@ -54,6 +59,10 @@ public class LoginPage {
         page.waitForSelector("text='Admin'",new Page.WaitForSelectorOptions().setTimeout(45000));
     }
 
+    /***
+     *
+     * @return
+     */
     public Page getPage(){
         return page;
     }

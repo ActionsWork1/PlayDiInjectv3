@@ -27,6 +27,8 @@
 
         <classes>
             <class name ="auto01.uitests2.LoginTest2"/>
+            <class name ="auto01.uitests2.TableTest"/>
+            <class name ="auto01.uitests2.EmployeeTest"/>
         </classes>
     </test>
 
