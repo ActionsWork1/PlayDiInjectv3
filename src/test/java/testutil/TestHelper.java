@@ -2,7 +2,11 @@ package testutil;
 
 import com.google.inject.Inject;
 import com.microsoft.playwright.Page;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
+import org.apache.xmlbeans.impl.xb.xsdschema.All;
 
+import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -130,6 +134,15 @@ public class TestHelper {
         }
     }
 
+
+    public void AttachScreenShot(){
+        Allure.attachment("Step Screenshot:", new ByteArrayInputStream(page.screenshot(new Page.ScreenshotOptions().setFullPage(true))));
+    }
+
+    public void consoleMessage(String message){
+        Allure.addAttachment(message,"text/plain",message);
+        System.out.println(message);
+    }
 
 
 }

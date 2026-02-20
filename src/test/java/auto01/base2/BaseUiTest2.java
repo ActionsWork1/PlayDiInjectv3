@@ -1,6 +1,7 @@
 package auto01.base2;
 
 import auto01.base.TestModule;
+import auto01.pages.BasePage;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
 import com.microsoft.playwright.Browser;
@@ -21,6 +22,9 @@ public class BaseUiTest2 {
 
     @Inject
     protected Page page; // Use this directly in your tests!
+
+    @Inject
+    protected BasePage basePage;
 
     @Inject
     protected Browser browser;

@@ -3,6 +3,7 @@ package testutil;
 import com.google.inject.Inject;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.WaitForSelectorState;
 
 import java.util.List;
 
@@ -77,6 +78,14 @@ public class WebTable {
 
     }
 
+    public  void WaitForTableRows(){
+        page.waitForSelector("div[role='rowgroup']",
+                new Page.WaitForSelectorOptions()
+                        .setTimeout(45_000)
+                        .setState(WaitForSelectorState.VISIBLE)
+                        .setState(WaitForSelectorState.ATTACHED)
+        );
+    }
 
 
 

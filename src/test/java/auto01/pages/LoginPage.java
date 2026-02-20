@@ -4,6 +4,7 @@ import auto01.base.FrameworkConfig;
 import com.google.inject.Inject;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.WaitForSelectorState;
 import com.microsoft.playwright.options.WaitUntilState;
 import org.testng.Reporter;
 
@@ -44,6 +45,12 @@ public class LoginPage {
                                  .setWaitUntil(WaitUntilState.DOMCONTENTLOADED)
                                  .setTimeout(45000)
                      );
+        page.waitForSelector("input[name='username']",new Page.WaitForSelectorOptions()
+                                                              .setTimeout(45_000)
+                                                              .setState(WaitForSelectorState.ATTACHED)
+        );
+
+
     }
 
     /***
@@ -56,8 +63,36 @@ public class LoginPage {
         Password_TXT.fill(pwd);
         LoginButton_BTN.click();
         Reporter.log("user logged in with: "+uname+"and pwd: "+pwd);
-        page.waitForSelector("text='Admin'",new Page.WaitForSelectorOptions().setTimeout(45000));
+        page.waitForSelector("text='Admin'",new Page.WaitForSelectorOptions()
+                                                         .setState(WaitForSelectorState.ATTACHED)
+                                                         .setTimeout(45000)
+        );
     }
+
+    public void appLogOut(Actions action){
+
+        page.locator("p.oxd-userdropdown-name").click();
+        switch (action){
+            case LOGOUT:
+                page.locator("a:text-is('Logout')").click();
+                page.waitForSelector("input[name='username']",new Page.WaitForSelectorOptions()
+                        .setTimeout(45_000)
+                        .setState(WaitForSelectorState.ATTACHED)
+                );
+                break;
+            case SETTINGS:
+                page.locator("a:text-is('Support')").click();
+                break;
+        }
+
+    }
+
+    public enum Actions{
+        LOGOUT,
+        SETTINGS,
+    }
+
+
 
     /***
      *
