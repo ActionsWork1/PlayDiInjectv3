@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="tests" thread-count="3" data-provider-thread-count="3">
+<suite name="All Test Suite" parallel="tests" thread-count="3" >
 
     <listeners>
         <listener class-name="auto01.base.AllureTestListener"/>
@@ -33,7 +33,7 @@
     </test>
 
 
-    <test name="E2E Employeee Tests" verbose="2" preserve-order="true" parallel="methods" >
+    <test name="E2E Employeee Tests" verbose="2" preserve-order="true">
         <groups>
             <run>
                 <include name="employee_e2e"/>
