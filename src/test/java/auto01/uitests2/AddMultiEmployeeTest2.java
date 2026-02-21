@@ -22,21 +22,18 @@ public class AddMultiEmployeeTest2 extends BaseUiTest2 {
 
     int dataITR=2;
 
-    @BeforeTest()
-//    @BeforeTest(alwaysRun = true)
+    @BeforeTest(alwaysRun = true)
     public void setUp() {
-        System.out.println("Current Date Time: " + TestHelper.currentTimeStamp());
         basePage.loginPage.NavigateTo("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-
-        //basePage.empPage.LoginToHRM("Admin", "admin123");
+        loginToApp("Admin", "admin123");
     }
 
 
-    @Test(groups={"employee_e2e"},dataProvider = "EmployeeData")
+    @Test(groups={"ui","grp2","employee_e2e"},dataProvider = "EmployeeData")
     public void testRegister(String firstName, String empID) {
         String userName = firstName+empID;
         System.out.println("First Name: "+ firstName+"| empID: "+empID);
-        loginToApp("Admin", "admin123");
+
         AddNewEmployee(firstName, empID);
         searchEmployeeTest3(firstName);
         basePage.testHelper.SleepTime(3000);
@@ -44,11 +41,9 @@ public class AddMultiEmployeeTest2 extends BaseUiTest2 {
         loginToApp(userName, "test123");
         logoutToApp();
 
-
-
     }
 
-    @DataProvider(name = "EmployeeData", parallel = true)
+    @DataProvider(name = "EmployeeData")
     public Object[][] provideData() {
         Faker faker = new Faker();
         int rowCount = 2; // Define how many test sets you want

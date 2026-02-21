@@ -37,7 +37,7 @@ public class EmployeeTest extends BaseUiTest2 {
     public void setUp() {
         System.out.println("Current Date Time: " + TestHelper.currentTimeStamp());
         loginPage.NavigateTo("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
-        empPage.LoginToHRM("Admin", "admin123");
+
     }
 
 
@@ -52,6 +52,7 @@ public class EmployeeTest extends BaseUiTest2 {
 
         Faker faker = new Faker();
         String empID =faker.random().nextInt(3000,7000).toString();
+        empPage.LoginToHRM("Admin", "admin123");
         empPage.createNewEmployee("hank"+empID, empID);
         testHelper.SleepTime(5000);
         testHelper.AttachScreenShot();

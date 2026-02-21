@@ -24,12 +24,9 @@ public class Employee {
         this.Password = Password;
     }
 
-    public Employee(String FirstName,
-                    String LastName,
-                    String EmployeeID)
+    public Employee(String FirstName,String EmployeeID)
     {
         this.FirstName = FirstName;
-        this.LastName = LastName;
         this.EmployeeID = EmployeeID;
 
     }

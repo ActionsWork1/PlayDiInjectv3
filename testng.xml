@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="tests" thread-count="3" >
+<suite name="All Test Suite" parallel="classes" thread-count="3" >
 
     <listeners>
         <listener class-name="auto01.base.AllureTestListener"/>
     </listeners>
 
-    <test name="Ui Data-Driven Test" verbose="2" preserve-order="true" >
-        <groups>
-            <run>
-                <include name="grp1"/>
-            </run>
-        </groups>
+<!--    <test name="Non-GUI Data Tests" verbose="2" preserve-order="true" parallel="classes">-->
+<!--        <classes>-->
+<!--            <class name ="auto01.nonguitests.CRUDJsonTest"/>-->
+<!--            <class name ="auto01.nonguitests.TestDataFaker"/>-->
+<!--            <class name ="auto01.nonguitests.TestDDT01"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 
-        <classes>
-            <class name ="auto01.uitests1.LoginTest1"/>
-        </classes>
-    </test>
+<!--    <test name="Ui Data-Driven Test" verbose="2" preserve-order="true" >-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="grp1"/>-->
+<!--            </run>-->
+<!--        </groups>-->
 
-    <test name="Non Lazy Page Initialization Tests" verbose="2" preserve-order="true" >
+<!--        <classes>-->
+<!--            <class name ="auto01.uitests1.LoginTest1"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+    <test name="Lazy Page Initialization Tests" preserve-order="true" >
         <groups>
             <run>
                 <include name="grp2"/>
@@ -27,31 +35,23 @@
 
         <classes>
             <class name ="auto01.uitests2.LoginTest2"/>
-            <class name ="auto01.uitests2.TableTest"/>
-            <class name ="auto01.uitests2.EmployeeTest"/>
+            <class name="auto01.uitests2.AddMultiEmployeeTest"/>
+            <class name="auto01.uitests2.AddSystemUserTest"/>
         </classes>
     </test>
 
+<!--    <test name="E2E Employeee Tests" verbose="2" preserve-order="true">-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="employee_e2e"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <classes>-->
+<!--            <class name ="auto01.uitests2.AddMultiEmployeeTest2"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 
-    <test name="E2E Employeee Tests" verbose="2" preserve-order="true">
-        <groups>
-            <run>
-                <include name="employee_e2e"/>
-            </run>
-        </groups>
 
-        <classes>
-            <class name ="auto01.uitests2.AddMultiEmployeeTest2"/>
-        </classes>
-    </test>
-
-    <test name="Non-GUI Data Tests" verbose="2" preserve-order="true" parallel="classes">
-        <classes>
-            <class name ="auto01.nonguitests.CRUDJsonTest"/>
-            <class name ="auto01.nonguitests.TestDataFaker"/>
-            <class name ="auto01.nonguitests.TestDDT01"/>
-        </classes>
-    </test>
 </suite>
 
 
