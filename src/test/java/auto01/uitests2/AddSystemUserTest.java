@@ -27,7 +27,7 @@ public class AddSystemUserTest extends BaseUiTest2 {
          basePage.loginPage.NavigateTo("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
      }
 
-     @Test()
+     @Test(groups = {"grp2"})
     public void testAddSystemUser() {
 
          Faker faker = new Faker();
@@ -47,21 +47,7 @@ public class AddSystemUserTest extends BaseUiTest2 {
          fLogout();
 
 
-//         basePage.loginPage.HRMLogin("Admin","admin123");
-//         AddNewEmployee(empName, empID);
-//         systemUserPage.navigateToAdminPage();
-//         String newSysUser =systemUserPage.AddNewSystemUser(empName, empID);
-//         basePage.testHelper.SleepTime(6000);
-//         systemUserPage.SearchSystemUser(newSysUser);
     }
-
-////    @Step("Performing login with username: [{username}] and password: [{password}]")
-//    @Step("Performing login")
-//    public void loginAdmin(String username, String password) {
-//        basePage.loginPage.HRMLogin(username,password);
-//    }
-
-
 
     @Step("Performing login with username: [{username}] and password")
     public void loginWithParam(
@@ -70,9 +56,6 @@ public class AddSystemUserTest extends BaseUiTest2 {
         System.out.println("Attempting to log in with user: " + user);
         basePage.loginPage.HRMLogin(user,pwd);
     }
-
-
-
 
     @Step("logout from app")
     public void fLogout(){
