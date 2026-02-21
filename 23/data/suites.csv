@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","30003","testEmployee_e2e","All Test Suite","Sat Feb 21 18:07:26 UTC 2026","broken","Sat Feb 21 18:07:56 UTC 2026","auto01.uitests2.AddMultiEmployeeTest","Lazy Page Initialization Tests","auto01.uitests2.AddMultiEmployeeTest","testEmployee_e2e"
+"","30001","testEmployee_e2e","All Test Suite","Sat Feb 21 18:07:57 UTC 2026","broken","Sat Feb 21 18:08:27 UTC 2026","auto01.uitests2.AddMultiEmployeeTest","Lazy Page Initialization Tests","auto01.uitests2.AddMultiEmployeeTest","testEmployee_e2e"
+"","2270","testAddSystemUser","All Test Suite","Sat Feb 21 18:07:25 UTC 2026","broken","Sat Feb 21 18:07:28 UTC 2026","auto01.uitests2.AddSystemUserTest","Lazy Page Initialization Tests","auto01.uitests2.AddSystemUserTest","testAddSystemUser"
+"","577","EmployeePageLinkTest","All Test Suite","Sat Feb 21 18:07:27 UTC 2026","broken","Sat Feb 21 18:07:28 UTC 2026","auto01.uitests2.LoginTest2","Lazy Page Initialization Tests","auto01.uitests2.LoginTest2","EmployeePageLinkTest"
+"","2060","AdminPageLinkTest","All Test Suite","Sat Feb 21 18:07:28 UTC 2026","passed","Sat Feb 21 18:07:30 UTC 2026","auto01.uitests2.LoginTest2","Lazy Page Initialization Tests","auto01.uitests2.LoginTest2","AdminPageLinkTest"
+"","2096","loginTest","All Test Suite","Sat Feb 21 18:07:25 UTC 2026","passed","Sat Feb 21 18:07:27 UTC 2026","auto01.uitests2.LoginTest2","Lazy Page Initialization Tests","auto01.uitests2.LoginTest2","loginTest"
